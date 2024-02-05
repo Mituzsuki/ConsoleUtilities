@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Mituzsuki.ConsoleUtilities
 {
-    internal class Util
+    internal class ObjectTreeGenerator
     {
         private readonly static Dictionary<Type, List<PropertyInfo>> _referenceTypePropsCache = new Dictionary<Type, List<PropertyInfo>>();
 
@@ -54,7 +54,7 @@ namespace Mituzsuki.ConsoleUtilities
             if (obj is not null && _objectsAlreadyRead.Contains(obj)) {
                 return string.Empty;
             }
-            else if(obj is not null) {
+            else if (obj is not null) {
                 _objectsAlreadyRead.Add(obj!);
             }
 
@@ -64,7 +64,7 @@ namespace Mituzsuki.ConsoleUtilities
 
             //If we are indented, continuing the main tree branch
             // e.g. |   |
-            if(indent > 0) {
+            if (indent > 0) {
                 buffer = $"|{buffer}";
             }
 
@@ -114,8 +114,7 @@ namespace Mituzsuki.ConsoleUtilities
 
                     //It's possible that the list ends up being null
                     //Due to how collections are used they need to be handled differently than other ref types
-                    if (list is not null)
-                    {
+                    if (list is not null) {
                         for (int i = 0; i < list.Count(); i++) {
 
                             string propName = $"{prop.Name}[{i}]";
@@ -127,7 +126,7 @@ namespace Mituzsuki.ConsoleUtilities
                     else {
                         sb.Append($"{buffer}+--{prop.Name}: (NULL)");
                     }
-                    
+
                 }
                 else {
                     int thisPropIndent = indent + 2 + prop.Name.Length;
